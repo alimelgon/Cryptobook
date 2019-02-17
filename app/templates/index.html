@@ -1,15 +1,14 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Criptobook</title>
-</head>
-<body>
+{% extends 'base.html'%}
+{% block title%} criptobook{%endblock%}
+{% block body%}
+
+    
     <h1>Criptobook</h1>
     <p><strong>Listado</strong> de operaciones de compraventa de criptomonedas</p>
+    <form action="nuevacompra", method='get'>  #cuando yo haga click en Nueva o en Editar llama a nuevacompra con el método get
     <table border="1">
         <tr>
+            <th>Sel.</th>#Creo la primera columna para meter un radiobutton
             <th>Fecha</th>
             <th>Hora</th>
             <th>Descripcion</th>
@@ -17,16 +16,28 @@
             <th>U. Compradas</th>
             <th>Moneda de pago</th>
             <th>U. Pagadas</th>
-
-
         </tr>
-
+        {% for movimiento in movimientos %}
+        <tr>
+            <td><input type='radio' name='ix' value="{{loop.index-1}}"></td> #meto el radiobutton
+            <td>{{movimiento['fecha']}}</td>
+            <td>{{movimiento['hora']}}</td>
+            <td>{{movimiento['descripcion']}}</td>
+            <td>{{movimiento['monedaComprada']}}</td>
+            <td>{{movimiento['cantidadComprada']}}</td>
+            <td>{{movimiento['monedaPagada']}}</td>
+            <td>{{movimiento['cantidadPagada']}}</td>
+        
+        </tr>
+        {% endfor%}
+       
     </table>
+    
  
- 
-    <form action="nuevacompra", method='get'>        
-        <input type="submit" value="Nueva">
+    #<form action="nuevacompra", method='get'> amplio el formulario pegandolo en linea 8 e inhabilito este para que me coja Editar      
+        <input type="submit" name="btnselected" value="Nueva">
+        <input type="submit" name="btnselected" value="Editar"
     </form>
+    
 
-</body>
-</html>
+{% endblock%}
